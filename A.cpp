@@ -23,6 +23,10 @@ void YES() {printf("YES\n");}
 void NO() {printf("NO\n");}
 
 int main(){
+  int X, A, B;
+  cin >> X >> A >> B;
+  X -= A;
+  cout << X % B << endl;
 
   return 0;
 }
