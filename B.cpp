@@ -23,6 +23,24 @@ void YES() {printf("YES\n");}
 void NO() {printf("NO\n");}
 
 int main(){
+  string S;
+  getline(cin, S);
+
+  if (S[0] == 'L') cout << "<";
+  else if (S[0] == 'R') cout << ">";
+  else cout << "A";
+
+  for (int i = 1; i < S.length(); i++){
+    if ('A' <= S[i] && S[i] <= 'Z' && S[i] != 'C'){
+      cout << " ";
+        if (S[i] == 'L') cout << "<";
+        else if (S[i] == 'R') cout << ">";
+        else cout << "A";
+    }else{
+      continue;
+    }
+  }
+  cout << endl;
 
   return 0;
 }
