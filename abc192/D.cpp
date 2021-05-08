@@ -26,13 +26,13 @@ string X;
 vector <int> numX;
 ll M;
 
-bool compare(int digit){
+bool compare(int startDigit){
 
   vector <int> nowDigit;
   ll nowM = M;
   while (nowM > 0){
-    nowDigit.push_back(nowM % digit);
-    nowM /= digit;
+    nowDigit.push_back(nowM % startDigit);
+    nowM /= startDigit;
   }
   
   if (numX.size() < nowDigit.size()) return true;
@@ -49,18 +49,19 @@ bool compare(int digit){
 
 int main(){
   cin >> X >> M;
-  int digit = 0;
+  int startDigit = 0;
   for (int i = 0 ; i < X.length(); i++){
     numX.push_back(X[i] - '0');
-    digit = max(digit, X[i] - '0');
+    startDigit = max(startDigit, X[i] - '0');
   }
 
-  int ans = 0;
-  digit++;
-  while (compare(digit)){
-    ans++; digit++;
+  ll L = startDigit, R = M + 1;
+  while (R - L > 1){
+    ll mid = (L + R) / 2;
+    if (compare(mid)) L = mid;
+    else R = mid;
   }
-  cout << ans << endl;
+  cout << L - startDigit << endl;
   
   return 0;
 }
