@@ -24,6 +24,5 @@ void NO() {printf("NO\n");}
 
 int main(){
 
-  
   return 0;
 }
