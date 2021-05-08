@@ -23,12 +23,12 @@ void YES() {printf("YES\n");}
 void NO() {printf("NO\n");}
 
 string X;
-vector <int> numX;
+vector <ll> numX;
 ll M;
 
-bool compare(int startDigit){
+bool compare(ll startDigit){
 
-  vector <int> nowDigit;
+  vector <ll> nowDigit;
   ll nowM = M;
   while (nowM > 0){
     nowDigit.push_back(nowM % startDigit);
@@ -49,10 +49,10 @@ bool compare(int startDigit){
 
 int main(){
   cin >> X >> M;
-  int startDigit = 0;
+  ll startDigit = 0;
   for (int i = 0 ; i < X.length(); i++){
     numX.push_back(X[i] - '0');
-    startDigit = max(startDigit, X[i] - '0');
+    startDigit = max(startDigit, ll(X[i] - '0'));
   }
 
   ll L = startDigit, R = M + 1;
