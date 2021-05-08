@@ -55,7 +55,17 @@ int main(){
     startDigit = max(startDigit, ll(X[i] - '0'));
   }
 
-  ll L = startDigit, R = M + 1;
+  if (!compare(startDigit + 1)){
+    cout << 0 << endl;
+    return 0;
+  }
+
+  if (numX.size() == 1){
+    cout << 1 << endl;
+    return 0;
+  }
+
+  ll L = startDigit + 1, R = M * 2;
   while (R - L > 1){
     ll mid = (L + R) / 2;
     if (compare(mid)) L = mid;
