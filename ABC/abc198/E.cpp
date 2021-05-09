@@ -34,6 +34,7 @@ int solve(int nowNode){
   if (usedColor[C[nowNode]] == 0){
     ans.push_back(nowNode);
   }
+  
   usedColor[C[nowNode]]++;
 
   for (int nextNode : graph[nowNode]){
