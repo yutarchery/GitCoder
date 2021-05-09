@@ -24,8 +24,12 @@ void NO() {printf("NO\n");}
 
 int main(){
   ll R, X, Y; cin >> R >> X >> Y;
-
   ll dist2 = (X * X + Y * Y);
+
+  if (dist2 < R * R){
+    cout << 2 << endl;
+    return 0;
+  }
 
   ll ans = 0;
   while (R * R * ans * ans < dist2){
