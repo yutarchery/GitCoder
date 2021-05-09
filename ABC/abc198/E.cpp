@@ -25,7 +25,6 @@ void NO() {printf("NO\n");}
 int N;
 int C[int(1e5 + 5)];
 vector <int> graph[int(1e5 + 5)];
-
 vector <int> ans;
 bool visited[int(1e5 + 5)];
 int usedColor[int(1e5 + 5)];
