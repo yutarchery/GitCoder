@@ -22,27 +22,59 @@ void No() {printf("No\n");}
 void YES() {printf("YES\n");}
 void NO() {printf("NO\n");}
 
+bool isPrime(int number){
+  if (number == 1) return false;
+  for (int i = 2; i * i <= number; i++){
+    if (number % i == 0) return false;
+  }
+  return true;
+}
+
+ll GCD(ll A, ll B){
+  if (A < B) swap(A, B);
+  while (A % B != 0){
+    A %= B; swap(A, B);
+  }
+  return B;
+}
+
 int N; 
-ll X[55], P[55];
-bool used[55];
+ll X[55], ans = 1;
+vector <ll> Prime;
+
+ll calcNowNumber(int indexNum){
+  ll res = 1;
+  for (int i = 0; i < Prime.size(); i++){
+    if (indexNum % 2 != 0) res *= Prime[i];
+    indexNum /= 2; 
+  }
+  return res;
+}
+
+bool check(ll nowNumber){
+  for (int i = 0; i < N; i++){
+    if (GCD(nowNumber, X[i]) == 1) return false;
+  }
+  return true;
+}
 
 int main(){
-  cin >> N;
-  for (int i = 0; i < N; i++) {
-    cin >> X[i];
-    for (int j = 2; j <= X[i]; j++){
-      if (X[i] % j == 0){
-        P[i] = j; 
-        break;
-      }
+  ll ans = 1;
+  for (ll i = 2; i <= 50; i++){
+    if (isPrime(i)) {
+      ans *= i;  
+      Prime.push_back(i);
     }
   }
 
-  ll ans = 1;
-  for (int i = 0; i < N; i++){
-    if (!used[P[i]]){
-      ans *= P[i];
-      used[P[i]] = true;
+  cin >> N;
+  for (int i = 0; i < N; i++) cin >> X[i];
+
+  int primeSize = Prime.size();
+  for (int i = 0; i < (1<<primeSize); i++){
+    ll nowNumber = calcNowNumber(i);
+    if (check(nowNumber)){
+      ans = min(ans, nowNumber);
     }
   }
   cout << ans << endl;
