@@ -50,6 +50,8 @@ int main(){
           visited[i] = true;
           que.push(i);
           loopIndex[i] = tryCount;
+          startNode = i;
+          break;
         }
       }
     }else{
