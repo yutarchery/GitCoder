@@ -10,10 +10,8 @@ object Main extends App{
     for (i <- 0 until N){
         val a = scanner.nextInt()
         if (a != X){
-            if (flag) print(" ")
-            flag = true
-            print(a)
+            ans :+= a
         }
     }
-    println()
+    println(ans.mkString(" "))
 }
