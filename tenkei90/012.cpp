@@ -40,19 +40,19 @@ int add(){
   cin >> R >> C;
   used[R][C] = true;
 
-  int num = R * W + C;
+  int num = (R - 1) * W + C;
   for (int k = 0; k < 4; k++){
     int I = R + di[k], J = C + dj[k];
     if (used[I][J]){
-      num = min(num, find(I * W + J));
+      num = min(num, find((I - 1) * W + J));
     }
   }
 
-  Group[R * W + C] = num;
+  Group[(R - 1) * W + C] = num;
   for (int k = 0; k < 4; k++){
     int I = R + di[k], J = C + dj[k];
     if (used[I][J]){
-      Group[I * W + J] = num;
+      Group[(I - 1) * W + J] = num;
     }
   }
   return 0;
@@ -64,14 +64,14 @@ bool check(){
 
   if (!used[Ra][Ca] || !used[Rb][Cb]) return false;
 
-  int A = Ra * W + Ca, B = Rb * W + Cb;
+  int A = (Ra - 1) * W + Ca, B = (Rb - 1) * W + Cb;
   return find(A) == find(B);
 }
 
 int main(){
   cin >> H >> W >> Q;
 
-  for (int i = 0; i <= (H + 1) * W; i++){
+  for (int i = 1; i <= H * W; i++){
     Group[i] = i;
   }
 
