@@ -31,10 +31,10 @@ struct UnionFind{
     if (parent[node] == 0){
       return parent[node] = node;
     }
-    while (node != parent[node]){
-      node = parent[node];
+    if (node == parent[node]){
+      return node;
     }
-    return node;
+    return parent[node] = root(parent[node]);
   }
 
   void unite(int node1, int node2){
@@ -65,7 +65,7 @@ int main(){
 
   UnionFind unionFind;
   unionFind.N = N;
-  for (int i = 0; i < N - 1 - i; i++){
+  for (int i = 0; i < N; i++){
     unionFind.unite(A[i], A[N - 1 - i]);
   }
   cout << unionFind.solve() << endl;
