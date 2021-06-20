@@ -22,66 +22,62 @@ void No() {printf("No\n");}
 void YES() {printf("YES\n");}
 void NO() {printf("NO\n");}
 
-int H, W, Q;
-bool used[2005][2005];
+struct UnionFind{
+  int N, par[int(4e6 + 5)] = {};
 
-vector <int> Graph[int(5e6 + 5)];
-int Group[int(5e6 + 5)];
-
-int di[4] = {0, 1, 0, -1}, dj[4] = {-1, 0, 1, 0};
-
-int find(int num){
-  if (num == Group[num]) return num;
-  else return Group[num] = find(Group[num]);
-}
-
-int add(){
-  int R, C; 
-  cin >> R >> C;
-  used[R][C] = true;
-
-  int num = (R - 1) * W + C;
-  for (int k = 0; k < 4; k++){
-    int I = R + di[k], J = C + dj[k];
-    if (used[I][J]){
-      num = min(num, find((I - 1) * W + J));
-    }
+  int root(int node){
+    if (par[node] == 0) return par[node] = node;
+    if (par[node] == node) return node;
+    return par[node] = root(par[node]);
   }
 
-  Group[(R - 1) * W + C] = num;
+  void unite(int node1, int node2){
+    int root1 = root(node1), root2 = root(node2);
+    par[root1] = root2;
+  }
+
+  bool same(int node1, int node2){
+    return root(node1) == root(node2);
+  }
+};
+
+
+int H, W, Q;
+bool used[2005][2005];
+int di[4] = {0, 1, 0, -1}, dj[4] = {-1, 0, 1, 0};
+UnionFind unionFind;
+
+int query1(){
+  int R, C; cin >> R >> C;
+  used[R][C] = true;
+  unionFind.root((R - 1) * W + C);
   for (int k = 0; k < 4; k++){
     int I = R + di[k], J = C + dj[k];
-    if (used[I][J]){
-      Group[(I - 1) * W + J] = num;
-    }
+    if (!used[I][J]) continue;
+    unionFind.unite((R - 1) * W + C, (I - 1) * W + J);
   }
   return 0;
 }
 
-bool check(){
+int query2(){
   int Ra, Ca, Rb, Cb;
   cin >> Ra >> Ca >> Rb >> Cb;
-
-  if (!used[Ra][Ca] || !used[Rb][Cb]) return false;
-
-  int A = (Ra - 1) * W + Ca, B = (Rb - 1) * W + Cb;
-  return find(A) == find(B);
+  if (!used[Ra][Ca] || !used[Rb][Cb]) {
+    No();
+    return 0;
+  }
+  if (unionFind.same((Ra - 1) * W + Ca, (Rb - 1) * W + Cb)) Yes();
+  else No();
+  return 0;
 }
+
 
 int main(){
   cin >> H >> W >> Q;
-
-  for (int i = 1; i <= H * W; i++){
-    Group[i] = i;
-  }
-
   for (int i = 0; i < Q; i++){
-    int q; cin >> q;
-    if (q == 1) add();
-    else {
-      if (check()) Yes();
-      else No();
-    }
+    int t; cin >> t;
+    if (t == 1) query1();
+    else query2();
   }
 
   return 0;
