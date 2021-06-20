@@ -44,11 +44,11 @@ struct UnionFind{
   }
 
   int solve(){
-    for (int i = 1; i <= N; i++){
+    for (int i = 1; i <= int(2e5); i++){
       cnt[root(i)]++;
     }
     int ans = 0;
-    for (int i = 1; i <= N; i++){
+    for (int i = 1; i <= int(2e5); i++){
       if (cnt[i] == 0) continue;
       ans += cnt[i] - 1;
     }
@@ -56,7 +56,7 @@ struct UnionFind{
   }
 };
 
-int N, A[int(2e5 + 5)];
+int N, A[int(2e5 + 5)], cnt[int(2e5 + 5)];
 
 int main(){
   cin >> N;
@@ -69,6 +69,7 @@ int main(){
   for (int i = 0; i < N; i++){
     unionFind.unite(A[i], A[N - 1 - i]);
   }
+
   cout << unionFind.solve() << endl;
 
   return 0;
