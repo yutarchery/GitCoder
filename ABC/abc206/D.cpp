@@ -39,6 +39,7 @@ struct UnionFind{
 
   void unite(int node1, int node2){
     int root1 = root(node1), root2 = root(node2);
+    if (root1 == root2) return;
     parent[root1] = root2;
   }
 
