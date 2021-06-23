@@ -23,51 +23,34 @@ void YES() {printf("YES\n");}
 void NO() {printf("NO\n");}
 
 int N;
-ll A[25], ans = INF;
-
-bool split[25];
-int useSplit(int num){
-  for (int i = 0; i < N; i++){
-    split[i] = num % 2;
-    num /= 2;  
-  }
-  return 0;
-}
+ll ans, A[20];
 
 int solve(int num){
-  useSplit(num);
-  vector <ll> nowOr;
-
-  ll nowNum = 0;
+  ll now = 0, res = 0;
   for (int i = 0; i < N; i++){
-    nowNum |= A[i];
-    if (split[i]){
-      nowOr.push_back(nowNum);
-      nowNum = 0;
+    now |= A[i];
+    if (num % 2 != 0){
+      res ^= now;
+      now = 0;
     }
+    num /= 2;
   }
-  nowOr.push_back(nowNum);
-
-  ll nowXor = 0;
-  for (ll now : nowOr){
-    nowXor ^= now;
-  }
-  ans = min(ans, nowXor);
-
+  res ^= now;
+  ans = min(res, ans);
   return 0;
 }
-
 
 int main(){
   cin >> N;
-  for (int i = 0; i < N; i++) cin >> A[i];
+  for (int i = 0; i < N; i++){
+    cin >> A[i];
+    ans ^= A[i];
+  }
 
   for (int i = 0; i < (1 << N); i++){
     solve(i);
   }
   cout << ans << endl;
-
-
 
   return 0;
 }
