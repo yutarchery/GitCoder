@@ -24,6 +24,8 @@ void NO() {printf("NO\n");}
 
 int H, W;
 char A[2005][2005];
+bool visited[2005][2005];
+int score[2005][2005];
 int di[2] = {0, 1}, dj[2] = {1, 0};
 
 int solve(int h, int w, bool turn){
@@ -31,6 +33,8 @@ int solve(int h, int w, bool turn){
     return 0;
   }
 
+  if (visited[h][w]) return score[h][w];
+  visited[h][w] = true;
   if (turn){
     int ans = -1e9;
     if (h + 1 < H){
@@ -41,7 +45,7 @@ int solve(int h, int w, bool turn){
       if (A[h][w + 1] == '+') ans = max(ans, solve(h, w + 1, false) + 1);
       else ans = max(ans, solve(h, w + 1, false) - 1);
     }
-    return ans;
+    return score[h][w] = ans;
   }else{
     int ans = 1e9;
     if (h + 1 < H){
@@ -52,7 +56,7 @@ int solve(int h, int w, bool turn){
       if (A[h][w + 1] == '+') ans = min(ans, solve(h, w + 1, true) - 1);
       else ans = min(ans, solve(h, w + 1, true) + 1);
     }
-    return ans;
+    return score[h][w] = ans;
   }
 }
 
