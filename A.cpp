@@ -22,6 +22,7 @@ void No() {printf("No\n");}
 void YES() {printf("YES\n");}
 void NO() {printf("NO\n");}
 
+
 int main(){
 
   return 0;
