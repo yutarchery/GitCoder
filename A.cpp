@@ -22,36 +22,7 @@ void No() {printf("No\n");}
 void YES() {printf("YES\n");}
 void NO() {printf("NO\n");}
 
-string S;
-string T[4] = {"dream", "dreamer", "erase", "eraser"};
-
-bool visited[int(1e5 + 5)];
-bool ans[int(1e5 + 5)];
-
-bool solve(int start){
-  if (start == S.length()) return true;
-  if (visited[start]) return ans[start];
-
-  visited[start] = true;
-  bool res = false;
-  for (int i = 0; i < 4; i++){
-    if (start + T[i].length() > S.length()){
-      continue;
-    }
-    bool flag = true;
-    for (int j = 0; j < T[i].length(); j++){
-      if (S[start + j] != T[i][j]) flag = false;
-    }
-    if (flag){
-      res |= solve(start + T[i].length());
-    }
-  }
-  return ans[start] = res;
-}
-
 int main(){
-  cin >> S;
-  if (solve(0)) YES();
-  else NO();
+
   return 0;
 }
