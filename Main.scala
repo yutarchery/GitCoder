@@ -15,12 +15,13 @@ object Main extends App {
       -1
     } else {
       val sumSeq = seq.slice(1, num).scanLeft(seq(0))(_ + _)
-      val idealSeq = (1 to N).map(i => i * (seq.sum / num))
+      val idealSeq = (1 to N)
+        .map(i => i * (seq.sum / num))
 
-      (0 until num).foldLeft(0) { (ans, v) =>
-        if (sumSeq(v) == idealSeq(v)) ans
-        else ans + 1
+      {
+        for { (a, b) <- (sumSeq, idealSeq).zipped } yield (a, b)
       }
+        .count(t => t._1 != t._2)
     }
   }
 }
