@@ -5,5 +5,5 @@ target
 .bsp
 .metals
 .scalafmt.conf
- .bloop
+.bloop
  
