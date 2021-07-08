@@ -5,21 +5,41 @@ object Main extends App {
   val s = readLine()
   val q = readInt()
 
-  val ans = (0 until q).foldLeft(s) { (acc, i) =>
-    {
+  val order = (0 until 2 * n).toArray
+
+  val reverseFlag =
+    (0 until q).foldLeft(false) { (acc, i) =>
       val Array(t, a, b) = readLine().split(" ").map(_.toInt)
 
       if (t == 1) {
-        query1(a - 1, b - 1, acc)
+        query(a - 1, b - 1, acc)
+        acc
       } else {
-        acc.slice(n, 2 * n) + acc.slice(0, n)
+        !acc
       }
     }
-  }
 
-  println(ans)
+  val finalOrder =
+    if (reverseFlag) {
+      order.slice(n, 2 * n) ++ order.slice(0, n)
+    } else {
+      order
+    }
 
-  def query1(a: Int, b: Int, s: String): String = {
-    s.updated(a, s(b)).updated(b, s(a))
+  println(finalOrder.map(i => s(i)).toList.mkString(""))
+
+  def query(a: Int, b: Int, reverseFlag: Boolean): Unit = {
+    val (aIndex, bIndex) = {
+      if (reverseFlag) {
+        ((a + n) % (2 * n), (b + n) % (2 * n))
+      } else {
+        (a, b)
+      }
+    }
+
+    val willChangeValueA = order(aIndex)
+
+    order(aIndex) = order(bIndex)
+    order(bIndex) = willChangeValueA
   }
 }
