@@ -2,27 +2,44 @@ import scala.io.StdIn._
 
 object Main extends App {
   val n = readInt()
-  val a = readLine().split(" ").map(_.toInt)
+  val s = readLine()
+  val q = readInt()
 
-  println {
-    (0 until (1 << n)).foldLeft(a.foldLeft(0)(_ ^ _)) { (acc, i) =>
-      math.min(acc, solve(i))
-    }
-  }
+  val order = (0 until 2 * n).toArray
 
-  def solve(num: Int): Int = {
-    val (xorResult, orResult, rest) =
-      a.foldLeft((0, 0, num)) { (acc, ai) =>
-        val xorValue = acc._1
-        val orValue = acc._2 | ai
-        val restValue = acc._3
+  val reverseFlag =
+    (0 until q).foldLeft(false) { (acc, i) =>
+      val Array(t, a, b) = readLine().split(" ").map(_.toInt)
 
-        if (restValue % 2 == 0) {
-          (xorValue ^ orValue, 0, restValue / 2)
-        } else {
-          (xorValue, orValue, restValue / 2)
-        }
+      if (t == 1) {
+        query(a - 1, b - 1, acc)
+        acc
+      } else {
+        !acc
       }
-    xorResult ^ orResult
+    }
+
+  val finalOrder =
+    if (reverseFlag) {
+      order.slice(n, 2 * n) ++ order.slice(0, n)
+    } else {
+      order
+    }
+
+  println(finalOrder.map(i => s(i)).toList.mkString(""))
+
+  def query(a: Int, b: Int, reverseFlag: Boolean): Unit = {
+    val (aIndex, bIndex) = {
+      if (reverseFlag) {
+        ((a + n) % (2 * n), (b + n) % (2 * n))
+      } else {
+        (a, b)
+      }
+    }
+
+    val willChangeValueA = order(aIndex)
+
+    order(aIndex) = order(bIndex)
+    order(bIndex) = willChangeValueA
   }
 }
