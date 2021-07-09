@@ -1,5 +1,4 @@
 import scala.io.StdIn._
-import scala.collection.mutable.HashMap
 
 object Main extends App {
   val n = readLong()
