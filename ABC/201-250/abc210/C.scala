@@ -5,41 +5,42 @@ object Main extends App {
   val Array(n, k) = readLine().split(" ").map(_.toInt)
   val c = readLine().split(" ").map(_.toInt)
 
-  val cnt = mutable.Map.empty[Int, Int]
-
-  val ans0 = (0 until k).foldLeft(0) { (acc, i) =>
-    if (cnt.contains(c(i))) {
-      cnt(c(i)) += 1
-      acc
-    } else {
-      cnt += (c(i) -> 1)
-      acc + 1
+  val cntMap = mutable.Map.empty[Int, Int]
+  c.foreach { ci =>
+    if (!cntMap.contains(ci)) {
+      cntMap += (ci -> 0)
     }
   }
 
-  println(solve(k, ans0, ans0))
+  println(solve(0, 0, 0))
 
-  def solve(index: Int, value: Int, max: Int): Int = {
+  def solve(index: Int, cnt: Int, ans: Int): Int = {
     if (index == n) {
-      max
+      ans
+    } else if (index < k) {
+      val newColor = cntMap(c(index)) == 0
+      cntMap(c(index)) += 1
+      if (newColor) {
+        solve(index + 1, cnt + 1, cnt + 1)
+      } else {
+        solve(index + 1, cnt, cnt)
+      }
     } else {
-      cnt(c(index - k)) -= 1
-      if (cnt.contains(c(index))) {
-        cnt(c(index)) += 1
-      } else {
-        cnt += (c(index) -> 1)
-      }
+      cntMap(c(index - k)) -= 1
+      val oldColor = cntMap(c(index - k)) == 0
 
-      val nowValue = if (cnt(c(index - k)) == 0 && cnt(c(index)) == 1) {
-        value
-      } else if (cnt(c(index - k)) == 0) {
-        value - 1
-      } else if (cnt(c(index)) == 1) {
-        value + 1
+      val newColor = cntMap(c(index)) == 0
+      cntMap(c(index)) += 1
+
+      if (oldColor && newColor) {
+        solve(index + 1, cnt, ans)
+      } else if (oldColor) {
+        solve(index + 1, cnt - 1, ans)
+      } else if (newColor) {
+        solve(index + 1, cnt + 1, math.max(ans, cnt + 1))
       } else {
-        value
+        solve(index + 1, cnt, ans)
       }
-      solve(index + 1, nowValue, math.max(max, nowValue))
     }
   }
 }
