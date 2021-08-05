@@ -33,7 +33,7 @@ int main(){
 
     if (p == 1){
       ll x; cin >> x;
-      que.push(x);
+      que.push(x - sum);
     }else if (p == 2){
       ll x; cin >> x;
       sum += x;
