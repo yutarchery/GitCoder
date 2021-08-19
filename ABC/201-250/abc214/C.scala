@@ -8,8 +8,8 @@ object Main extends App {
   val ans = new Array[Long](n)
 
   ans(0) = math.min(s(0), t(0))
-  (1 until n).foreach { i =>
-    ans(i) = math.min(ans(i - 1) + s(i - 1), t(i))
+  (1 until 2 * n).foreach { i =>
+    ans(i % n) = math.min(ans((i - 1) % n) + s((i - 1) % n), t(i % n))
   }
 
   println(ans.mkString("\n"))
