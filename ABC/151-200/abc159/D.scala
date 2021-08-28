@@ -11,7 +11,7 @@ object Main extends App {
     acc + count(i) * (count(i) - 1) / 2
   }
 
-  a.foreach { ai =>
-    println(sum - (count(ai) - 1))
-  }
+  val ans = a.map { ai => sum - (count(ai) - 1) }
+
+  println(ans.mkString("\n"))
 }
