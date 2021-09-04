@@ -26,28 +26,10 @@ int main(){
   ll a[3];
   for (int i = 0; i < 3; i++) cin >> a[i];
 
-  ll ans = 1e16;
+  ll x = a[0] - 2 * a[1] + a[2];
 
-  ll ideal0 = 2 * a[1] - a[2];
-  if (a[0] <= ideal0){
-    ans = min(ans, ideal0 - a[0]);
-  }
-
-  ll ideal1 = (a[0] + a[2] + 1) / 2;
-  if (a[1] <= ideal1){
-    if ((a[0] + a[2]) % 2 == 0){
-      ans = min(ans, ideal1 - a[1]);
-    }else{
-      ans = min(ans, ideal1 - a[1] + 1);
-    }
-  }
-
-  ll ideal2 = 2 * a[1] - a[0];
-  if (a[2] <= ideal2){
-    ans = min(ans, ideal2 - a[2]);
-  }
-
-  cout << ans << endl;
+  ll t = (x <= 0 ? 0 : (x + 1) / 2);
+  cout << -1 * x + 3 * t << endl;
 
   return 0;
 }
