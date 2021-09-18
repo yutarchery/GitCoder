@@ -27,28 +27,24 @@ int si, sj, ui, uj;
 char s[205][205], t[205][205], u[205][205];
 
 void setStart(){
-  bool setted = false;
+  si = n, sj = n;
   for (int i = 0; i < n; i++){
     for (int j = 0; j < n; j++){
       if (s[i][j] == '#'){
-        si = i; sj = j;
-        setted= true;
-        break;
+        si = min(si, i);
+        sj = min(sj, j);
       }
     }
-    if (setted) break;
   }
 
-  setted = false;
+  ui = n, uj = n;
   for (int i = 0; i < n; i++){
     for (int j = 0; j < n; j++){
       if (u[i][j] == '#'){
-        ui = i; uj = j;
-        setted = true;
-        break;
+        ui = min(ui, i);
+        uj = min(uj, j);
       }
     }
-    if (setted) break;
   }
 }
 
@@ -69,14 +65,19 @@ void setU(){
 
 bool solve(){
   setU();
+
+  int cnt = 0;
   for (int i = 0; i + si < n && i + ui < n; i++){
     for (int j = 0; j + sj < n && j + uj < n; j++){
       if (s[i + si][j + sj] != u[i + ui][j + uj]){
         return false;
       }
+      if (s[i + si][j + sj] == '#'){
+        cnt++;
+      }
     }
   }
-  return true;
+  return cnt == cntS && cnt == cntT;
 }
 
 
@@ -98,11 +99,6 @@ int main(){
         cntT++;
       }
     }
-  }
-
-  if (cntS != cntT){
-    No();
-    return 0;
   }
 
   bool ans = false;
