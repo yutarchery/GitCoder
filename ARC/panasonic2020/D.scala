@@ -2,15 +2,14 @@ import scala.io.StdIn._
 
 object Main extends App {
   val n = readInt()
-  solve(1, Seq(0))
+  solve("a")
 
-  def solve(turn: Int, array: Seq[Int]): Unit = {
-    if (array.size == n) {
-      val ans: Seq[Char] = array.map(i => ('a' + i).toChar)
-      println(ans.mkString)
+  def solve(now: String): Unit = {
+    if (now.length() == n) {
+      println(now)
     } else {
-      val max = array.max
-      (0 to max + 1).foreach { i => solve(turn + 1, array :+ i) }
+      val max = now.max + 1
+      ('a' to max.toChar).foreach { i => solve(now :+ i) }
     }
   }
 }
