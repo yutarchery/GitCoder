@@ -9,7 +9,7 @@ object Main extends App {
   println(solve(x, 0, 0))
 
   def solve(rest: Long, ans: Long, index: Int): Long = {
-    if (rest <= 0) {
+    if (rest < 0) {
       ans
     } else if (rest >= sum) {
       solve(rest % sum, ans + n * (rest / sum), index)
