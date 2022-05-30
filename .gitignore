@@ -6,4 +6,4 @@ target
 .metals
 .scalafmt.conf
 .bloop
- 
+main
