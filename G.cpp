@@ -10,11 +10,11 @@ typedef pair<ll, int> Pli;
 typedef vector<vector<ll>> Mat;
 #define fi first
 #define se second
-const ll mod = 1e9 + 7;
-const ll mod2 = 998244353;
-const ll mod3 = 1812447359;
-const ll inf = 1ll << 62;
-const double pi = 2 * asin(1);
+const ll MOD = 1e9 + 7;
+const ll MOD2 = 998244353;
+const ll MOD3 = 1812447359;
+const ll INF = 1ll << 62;
+const double PI = 2 * asin(1);
 void yes() { printf("yes\n"); }
 void no() { printf("no\n"); }
 void Yes() { printf("Yes\n"); }
