@@ -10,11 +10,11 @@ typedef pair<ll, int> Pli;
 typedef vector<vector<ll>> Mat;
 #define fi first
 #define se second
-const ll mod = 1e9 + 7;
-const ll mod2 = 998244353;
-const ll mod3 = 1812447359;
-const ll inf = 1ll << 62;
-const double pi = 2 * asin(1);
+const ll MOD = 1e9 + 7;
+const ll MOD2 = 998244353;
+const ll MOD3 = 1812447359;
+const ll INF = 1ll << 62;
+const double PI = 2 * asin(1);
 void yes() { printf("yes\n"); }
 void no() { printf("no\n"); }
 void Yes() { printf("Yes\n"); }
@@ -29,28 +29,26 @@ ll dp[1005][1005];
 
 int main() {
   cin >> h >> w;
-  for (int i = 0; i < h; i++) {
-    for (int j = 0; j < w; j++) {
+  for (int i = 1; i <= h; i++) {
+    for (int j = 1; j <= w; j++) {
       cin >> a[i][j];
     }
   }
 
-  dp[0][0] = 1;
-  for (int i = 0; i < h; i++) {
-    for (int j = 0; j < w; j++) {
-      if (a[i][j + 1] == '.') {
-        dp[i][j + 1] += dp[i][j];
-        dp[i][j + 1] %= mod;
+  for (int i = 1; i <= h; i++) {
+    for (int j = 1; j <= w; j++) {
+      if (i == 1 && j == 1) {
+        dp[1][1] = 1;
+        continue;
       }
 
-      if (a[i + 1][j] == '.') {
-        dp[i + 1][j] += dp[i][j];
-        dp[i + 1][j] %= mod;
+      if (a[i][j] == '.') {
+        dp[i][j] = (dp[i - 1][j] + dp[i][j - 1]) % MOD;
       }
     }
   }
 
-  cout << dp[h - 1][w - 1] << endl;
+  cout << dp[h][w] << endl;
 
   return 0;
 }
