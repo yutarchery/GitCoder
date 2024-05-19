@@ -31,23 +31,23 @@ int main() {
     cin >> a[i];
     sum += a[i] * (n - 1);
   }
-  sort(a, a + n + 1);
+  sort(a + 1, a + n + 1);
 
-  for (int i = 1; i <= n; i++) {
-    if (a[i - 1] + a[i] < int(1e8)) {
+  for (int i = 1; i < n; i++) {
+    if (a[i] + a[n] < ll(1e8)) {
       continue;
     }
 
-    int l = 0, r = i - 1;
+    int l = i, r = n;
     while (r - l > 1) {
       int mid = (l + r) / 2;
-      if (a[mid] + a[i] < int(1e8)) {
+      if (a[i] + a[mid] < ll(1e8)) {
         l = mid;
       } else {
         r = mid;
       }
     }
-    cnt += (i - 1) - l;
+    cnt += n - r + 1;
   }
 
   cout << sum - cnt * ll(1e8) << endl;
