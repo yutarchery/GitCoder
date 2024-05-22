@@ -26,22 +26,50 @@ int n;
 string s[int(3e5 + 5)];
 
 ll ans = 0;
-map<ll, ll> cnt;
+const int sz = 50;
+array<ll, sz> mods;
+map<array<ll, sz>, ll> cnt;
+
+bool is_prime(ll num) {
+  for (ll i = 2; i * i <= num; i++) {
+    if (num % i == 0) {
+      return false;
+    }
+  }
+  return true;
+}
+
+void prepare() {
+  ll num = 2;
+  for (int i = 0; i < sz; i++) {
+    while (!is_prime(num)) {
+      num++;
+    }
+    mods[i] = num;
+    num++;
+  }
+  return;
+}
 
 int main() {
   cin >> n;
   for (int i = 1; i <= n; i++) {
     cin >> s[i];
+  }
 
-    ll num = 1, sum = 0;
+  prepare();
+  for (int i = 1; i <= n; i++) {
+    array<ll, sz> now = {};
+
     for (int j = 0; j < s[i].length(); j++) {
-      sum += (s[i][j] - 'a' + 1) * num;
-      sum %= ll(1e16);
+      for (int k = 0; k < sz; k++) {
+        now[k] *= MOD2;
+        now[k] += s[i][j];
+        now[k] %= mods[k];
+      }
 
-      ans += cnt[sum];
-      cnt[sum]++;
-      num *= 27;
-      num %= ll(1e16);
+      ans += cnt[now];
+      cnt[now]++;
     }
   }
   cout << ans << endl;
