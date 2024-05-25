@@ -40,7 +40,7 @@ bool is_prime(ll num) {
 }
 
 void prepare() {
-  ll num = 2;
+  ll num = 5;
   for (int i = 0; i < sz; i++) {
     while (!is_prime(num)) {
       num++;
@@ -63,8 +63,8 @@ int main() {
 
     for (int j = 0; j < s[i].length(); j++) {
       for (int k = 0; k < sz; k++) {
-        now[k] *= MOD2;
-        now[k] += s[i][j];
+        now[k] *= 27;
+        now[k] += s[i][j] - 'a' + 1;
         now[k] %= mods[k];
       }
 
