@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+typedef long double ld;
+typedef pair<int, int> Pii;
+typedef pair<int, ll> Pil;
+typedef pair<ll, ll> Pll;
+typedef pair<ll, int> Pli;
+typedef vector<vector<ll>> Mat;
+#define fi first
+#define se second
+const ll MOD = 1e9 + 7;
+const ll MOD2 = 998244353;
+const ll MOD3 = 1812447359;
+const ll INF = 1ll << 62;
+const double PI = 2 * asin(1);
+void yes() { printf("yes\n"); }
+void no() { printf("no\n"); }
+void Yes() { printf("Yes\n"); }
+void No() { printf("No\n"); }
+void YES() { printf("YES\n"); }
+void NO() { printf("NO\n"); }
+
+ll d, ans = 1e16;
+
+int main() {
+  cin >> d;
+  for (ll i = 0; i <= ll(2e6); i++) {
+    if (i * i >= d) {
+      ans = min(ans, abs(i * i - d));
+      continue;
+    }
+
+    ll l = 0, r = ll(2e6);
+    while (r - l > 1) {
+      ll mid = (l + r) / 2;
+      if (i * i + mid * mid - d <= 0) {
+        l = mid;
+      } else {
+        r = mid;
+      }
+    }
+
+    ans = min(ans, abs(i * i + l * l - d));
+    ans = min(ans, abs(i * i + r * r - d));
+  }
+  cout << ans << endl;
+
+  return 0;
+}
