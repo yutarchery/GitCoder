@@ -32,32 +32,17 @@ int calc_cnt() {
   int now_h[5] = {0, 1, 2, 3, 4}, now_w[5] = {0, 1, 2, 3, 4};
 
   for (int i = 0; i < h; i++) {
-    int t;
-    for (int j = 0; j < h; j++) {
-      if (now_h[j] == order_h[i]) {
-        t = j;
-        break;
+    for (int j = i + 1; j < h; j++) {
+      if (order_h[i] > order_h[j]) {
+        cnt++;
       }
-    }
-
-    for (int j = t; j - 1 >= i; j--) {
-      swap(now_h[j], now_h[j - 1]);
-      cnt++;
     }
   }
-
   for (int i = 0; i < w; i++) {
-    int t;
-    for (int j = 0; j < w; j++) {
-      if (now_w[j] == order_w[i]) {
-        t = j;
-        break;
+    for (int j = i + 1; j < w; j++) {
+      if (order_w[i] > order_w[j]) {
+        cnt++;
       }
-    }
-
-    for (int j = t; j - 1 >= i; j--) {
-      swap(now_w[j], now_w[j - 1]);
-      cnt++;
     }
   }
 
