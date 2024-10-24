@@ -22,38 +22,40 @@ void No() { printf("No\n"); }
 void YES() { printf("YES\n"); }
 void NO() { printf("NO\n"); }
 
-ll n;
-int a[int(2e5 + 5)];
-map<int, ll> cnt;
+int n, a[int(2e5 + 5)], idx;
 
-ll conbi_sum = 0;
-ll conbi[int(2e5 + 5)];
+ll l[int(2e5 + 5)], r[int(2e5 + 5)], ans = 0;
+Pll p[int(2e5 + 5)];
 
 int main() {
   cin >> n;
   for (int i = 1; i <= n; i++) {
     cin >> a[i];
-    cnt[a[i]]++;
   }
-  sort(a, a + n + 1);
+  sort(a + 1, a + n + 1);
 
-  for (int i = 1; i <= n; i++) {
+  int cnt = 1;
+  for (int i = 2; i <= n + 1; i++) {
     if (a[i] == a[i - 1]) {
-      continue;
+      cnt++;
+    } else {
+      idx++;
+      p[idx] = {a[i - 1], cnt};
+      cnt = 1;
     }
-    conbi_sum += cnt[a[i]] * (n - cnt[a[i]]);
   }
 
-  ll ans = 0;
-  for (int i = 1; i <= n; i++) {
-    if (a[i] == a[i - 1]) {
-      continue;
-    }
-
-    ans += cnt[a[i]] * (conbi_sum - cnt[a[i]] * (n - cnt[a[i]]) * 2);
+  for (int i = 1; i <= idx; i++) {
+    l[i] = l[i - 1] + p[i - 1].second;
+  }
+  for (int i = idx; i >= 1; i--) {
+    r[i] = r[i + 1] + p[i + 1].second;
   }
 
-  cout << ans / 6 << endl;
+  for (int i = 1; i <= idx; i++) {
+    ans += l[i] * r[i] * p[i].second;
+  }
+  cout << ans << endl;
 
   return 0;
 }
