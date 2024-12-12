@@ -10,11 +10,11 @@ typedef pair<ll, int> Pli;
 typedef vector<vector<ll>> Mat;
 #define fi first
 #define se second
-const ll mod = 1e9 + 7;
-const ll mod2 = 998244353;
-const ll mod3 = 1812447359;
-const ll inf = 1ll << 62;
-const double pi = 2 * asin(1);
+const ll MOD = 1e9 + 7;
+const ll MOD2 = 998244353;
+const ll MOD3 = 1812447359;
+const ll INF = 1ll << 62;
+const double PI = 2 * asin(1);
 void yes() { printf("yes\n"); }
 void no() { printf("no\n"); }
 void Yes() { printf("Yes\n"); }
@@ -22,50 +22,30 @@ void No() { printf("No\n"); }
 void YES() { printf("YES\n"); }
 void NO() { printf("NO\n"); }
 
-ll x;
-map<ll, bool> used;
-vector<ll> num;
+ll x, ans = 1e18;
 
-void dfs(ll now, ll diff) {
-  if (now <= 0 || now >= ll(2e17)) {
+void calc(ll now, ll diff) {
+  if (x <= now) {
+    ans = min(ans, now);
     return;
   }
-
-  if (!used[now]) {
-    used[now] = true;
-    num.push_back(now);
+  ll next = now % 10 + diff;
+  if (0 <= next && next <= 9) {
+    calc(now * 10 + next, diff);
+    return;
+  } else {
+    return;
   }
-
-  ll nextDigit = now % 10 + diff;
-  ll next = now * 10 + nextDigit;
-  if (0 <= nextDigit && nextDigit < 10) {
-    dfs(next, diff);
-  }
-
-  return;
 }
 
 int main() {
   cin >> x;
-  num.push_back(0);
-  for (ll now = 1; now < 10; now++) {
-    for (ll diff = -9; diff <= 9; diff++) {
-      dfs(now, diff);
+  for (int i = 1; i <= 9; i++) {
+    for (int j = -9; j <= 9; j++) {
+      calc(i, j);
     }
   }
-  sort(num.begin(), num.end());
-
-  int l = 0, r = num.size() - 1;
-  while (r - l > 1) {
-    int mid = (l + r) / 2;
-
-    if (x <= num[mid]) {
-      r = mid;
-    } else {
-      l = mid;
-    }
-  }
-  cout << num[r] << endl;
+  cout << ans << endl;
 
   return 0;
 }
