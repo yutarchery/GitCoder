@@ -22,30 +22,20 @@ void No() { printf("No\n"); }
 void YES() { printf("YES\n"); }
 void NO() { printf("NO\n"); }
 
-ll x, ans = 1e18;
-
-void calc(ll now, ll diff) {
-  if (x <= now) {
-    ans = min(ans, now);
-    return;
-  }
-  ll next = now % 10 + diff;
-  if (0 <= next && next <= 9) {
-    calc(now * 10 + next, diff);
-    return;
-  } else {
-    return;
-  }
-}
+int n, cnt[10];
 
 int main() {
-  cin >> x;
-  for (int i = 1; i <= 9; i++) {
-    for (int j = -9; j <= 9; j++) {
-      calc(i, j);
-    }
+  cin >> n;
+  while (n > 0) {
+    cnt[n % 10]++;
+    n /= 10;
   }
-  cout << ans << endl;
+
+  if (cnt[1] == 1 && cnt[2] == 2 && cnt[3] == 3) {
+    Yes();
+  } else {
+    No();
+  }
 
   return 0;
 }

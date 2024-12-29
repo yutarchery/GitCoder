@@ -22,30 +22,42 @@ void No() { printf("No\n"); }
 void YES() { printf("YES\n"); }
 void NO() { printf("NO\n"); }
 
-ll x, ans = 1e18;
-
-void calc(ll now, ll diff) {
-  if (x <= now) {
-    ans = min(ans, now);
-    return;
-  }
-  ll next = now % 10 + diff;
-  if (0 <= next && next <= 9) {
-    calc(now * 10 + next, diff);
-    return;
-  } else {
-    return;
-  }
-}
+int n, k, cnt;
+char s[int(5e5 + 5)];
+vector<char> ans[int(5e5 + 5)];
 
 int main() {
-  cin >> x;
-  for (int i = 1; i <= 9; i++) {
-    for (int j = -9; j <= 9; j++) {
-      calc(i, j);
+  cin >> n >> k;
+  for (int i = 0; i < n; i++) {
+    cin >> s[i];
+  }
+
+  int idx = 0;
+  ans[idx].push_back(s[0]);
+  for (int i = 1; i < n; i++) {
+    if (s[i] != s[i - 1]) {
+      idx++;
+    }
+    ans[idx].push_back(s[i]);
+  }
+
+  int cnt = 0;
+  for (int i = 0; i <= idx; i++) {
+    if (ans[i][0] == '1') {
+      cnt++;
+      if (cnt == k) {
+        swap(ans[i], ans[i - 1]);
+        break;
+      }
     }
   }
-  cout << ans << endl;
+
+  for (int i = 0; i <= idx; i++) {
+    for (char c : ans[i]) {
+      cout << c;
+    }
+  }
+  cout << endl;
 
   return 0;
 }

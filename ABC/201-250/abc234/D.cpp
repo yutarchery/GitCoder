@@ -22,30 +22,24 @@ void No() { printf("No\n"); }
 void YES() { printf("YES\n"); }
 void NO() { printf("NO\n"); }
 
-ll x, ans = 1e18;
-
-void calc(ll now, ll diff) {
-  if (x <= now) {
-    ans = min(ans, now);
-    return;
-  }
-  ll next = now % 10 + diff;
-  if (0 <= next && next <= 9) {
-    calc(now * 10 + next, diff);
-    return;
-  } else {
-    return;
-  }
-}
+int n, k, p[int(5e5 + 5)];
+priority_queue<int, vector<int>, greater<int>> que;
 
 int main() {
-  cin >> x;
-  for (int i = 1; i <= 9; i++) {
-    for (int j = -9; j <= 9; j++) {
-      calc(i, j);
-    }
+  cin >> n >> k;
+  for (int i = 1; i <= n; i++) {
+    cin >> p[i];
   }
-  cout << ans << endl;
+
+  for (int i = 1; i <= k; i++) {
+    que.push(p[i]);
+  }
+  cout << que.top() << endl;
+  for (int i = k + 1; i <= n; i++) {
+    que.push(p[i]);
+    que.pop();
+    cout << que.top() << endl;
+  }
 
   return 0;
 }

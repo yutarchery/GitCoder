@@ -22,30 +22,27 @@ void No() { printf("No\n"); }
 void YES() { printf("YES\n"); }
 void NO() { printf("NO\n"); }
 
-ll x, ans = 1e18;
+int n, q, a[int(2e5 + 5)], x, k;
 
-void calc(ll now, ll diff) {
-  if (x <= now) {
-    ans = min(ans, now);
-    return;
-  }
-  ll next = now % 10 + diff;
-  if (0 <= next && next <= 9) {
-    calc(now * 10 + next, diff);
-    return;
-  } else {
-    return;
-  }
-}
+map<int, int> cnt;
+map<Pii, int> ans;
 
 int main() {
-  cin >> x;
-  for (int i = 1; i <= 9; i++) {
-    for (int j = -9; j <= 9; j++) {
-      calc(i, j);
+  cin >> n >> q;
+  for (int i = 1; i <= n; i++) {
+    cin >> a[i];
+    cnt[a[i]]++;
+    ans[{a[i], cnt[a[i]]}] = i;
+  }
+
+  for (int i = 1; i <= q; i++) {
+    cin >> x >> k;
+    if (ans[{x, k}] == 0) {
+      cout << -1 << endl;
+    } else {
+      cout << ans[{x, k}] << endl;
     }
   }
-  cout << ans << endl;
 
   return 0;
 }

@@ -22,30 +22,26 @@ void No() { printf("No\n"); }
 void YES() { printf("YES\n"); }
 void NO() { printf("NO\n"); }
 
-ll x, ans = 1e18;
-
-void calc(ll now, ll diff) {
-  if (x <= now) {
-    ans = min(ans, now);
-    return;
-  }
-  ll next = now % 10 + diff;
-  if (0 <= next && next <= 9) {
-    calc(now * 10 + next, diff);
-    return;
-  } else {
-    return;
-  }
-}
+int n, m;
+set<int> st;
 
 int main() {
-  cin >> x;
-  for (int i = 1; i <= 9; i++) {
-    for (int j = -9; j <= 9; j++) {
-      calc(i, j);
-    }
+  cin >> n;
+  for (int i = 1; i <= 2 * n + 1; i++) {
+    st.insert(i);
   }
-  cout << ans << endl;
+
+  while (!st.empty()) {
+    auto iter = st.begin();
+    int now = *iter;
+    cout << now << endl;
+    st.erase(now);
+    cin >> m;
+    if (m == 0) {
+      break;
+    }
+    st.erase(m);
+  }
 
   return 0;
 }

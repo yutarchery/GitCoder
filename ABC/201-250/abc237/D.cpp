@@ -22,30 +22,33 @@ void No() { printf("No\n"); }
 void YES() { printf("YES\n"); }
 void NO() { printf("NO\n"); }
 
-ll x, ans = 1e18;
+int n;
+string s;
 
-void calc(ll now, ll diff) {
-  if (x <= now) {
-    ans = min(ans, now);
-    return;
-  }
-  ll next = now % 10 + diff;
-  if (0 <= next && next <= 9) {
-    calc(now * 10 + next, diff);
-    return;
-  } else {
-    return;
-  }
-}
+deque<int> que;
 
 int main() {
-  cin >> x;
-  for (int i = 1; i <= 9; i++) {
-    for (int j = -9; j <= 9; j++) {
-      calc(i, j);
+  cin >> n;
+  cin >> s;
+
+  que.push_front(n);
+  for (int i = n - 1; i >= 0; i--) {
+    if (s[i] == 'L') {
+      que.push_back(i);
+    } else {
+      que.push_front(i);
     }
   }
-  cout << ans << endl;
+
+  for (int i = 0; i <= n; i++) {
+    cout << que.front();
+    que.pop_front();
+    if (i == n) {
+      cout << endl;
+    } else {
+      cout << " ";
+    }
+  }
 
   return 0;
 }
