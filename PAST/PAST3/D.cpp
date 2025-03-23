@@ -22,43 +22,30 @@ void No() { printf("No\n"); }
 void YES() { printf("YES\n"); }
 void NO() { printf("NO\n"); }
 
-int n;
-string s[5];
-const string t[5] = {".###..#..###.###.#.#.###.###.###.###.###.",
-                     ".#.#.##....#...#.#.#.#...#.....#.#.#.#.#.",
-                     ".#.#..#..###.###.###.###.###...#.###.###.",
-                     ".#.#..#..#.....#...#...#.#.#...#.#.#...#.",
-                     ".###.###.###.###...#.###.###...#.###.###."};
-
-int judge(int s_idx) {
-  for (int j = 0; j <= 9; j++) {
-    bool flag = true;
-    for (int i = 0; i < 5; i++) {
-      for (int k = 0; k < 3; k++) {
-        if (s[i][s_idx + k] != t[i][4 * j + 1 + k]) {
-          flag = false;
-        }
-      }
-    }
-
-    if (flag) {
-      return j;
-    }
-  }
-
-  return -1;
-}
+int n, m, num, x, y, z;
+int attacked[int(2e5 + 5)], score[int(2e5 + 5)];
 
 int main() {
-  cin >> n;
-  for (int i = 0; i < 5; i++) {
-    cin >> s[i];
+  cin >> n >> m;
+  for (int i = 1; i <= m; i++) {
+    cin >> num;
+
+    if (num == 1) {
+      cin >> x >> y;
+      attacked[y] = x;
+    } else {
+      cin >> z;
+      score[z]--;
+      if (attacked[z] != 0) {
+        score[attacked[z]]++;
+      }
+      attacked[z] = 0;
+    }
   }
 
-  for (int i = 0; i < n; i++) {
-    cout << judge(i * 4 + 1);
+  for (int i = 1; i <= n; i++) {
+    cout << score[i] << (i == n ? "\n" : " ");
   }
-  cout << endl;
 
   return 0;
 }
