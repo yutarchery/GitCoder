@@ -22,59 +22,31 @@ void No() { printf("No\n"); }
 void YES() { printf("YES\n"); }
 void NO() { printf("NO\n"); }
 
-int n, x, y, z, a[1005], b[1005];
-
-bool visited[1005];
-priority_queue<Pii> math, eng, sum;
+int n, m, x;
+ll t, a[int(1e5 + 5)], b[int(1e5 + 5)], y;
 
 int main() {
-  cin >> n >> x >> y >> z;
-  for (int i = 1; i <= n; i++) {
+  cin >> n >> m >> t;
+  for (int i = 1; i <= n - 1; i++) {
     cin >> a[i];
-    math.push({a[i], -1 * i});
   }
-  for (int i = 1; i <= n; i++) {
-    cin >> b[i];
-    eng.push({b[i], -1 * i});
-    sum.push({a[i] + b[i], -1 * i});
+  for (int i = 1; i <= m; i++) {
+    cin >> x >> y;
+    b[x] += y;
   }
 
-  while (x > 0) {
-    Pii q = math.top();
-    math.pop();
-    if (visited[-1 * q.second]) {
-      continue;
+  for (int i = 1; i <= n - 1; i++) {
+    t += b[i];
+
+    if (t > a[i]) {
+      t -= a[i];
     } else {
-      visited[-1 * q.second] = true;
-      x--;
-    }
-  }
-  while (y > 0) {
-    Pii q = eng.top();
-    eng.pop();
-    if (visited[-1 * q.second]) {
-      continue;
-    } else {
-      visited[-1 * q.second] = true;
-      y--;
-    }
-  }
-  while (z > 0) {
-    Pii q = sum.top();
-    sum.pop();
-    if (visited[-1 * q.second]) {
-      continue;
-    } else {
-      visited[-1 * q.second] = true;
-      z--;
+      No();
+      return 0;
     }
   }
 
-  for (int i = 1; i <= n; i++) {
-    if (visited[i]) {
-      cout << i << endl;
-    }
-  }
+  Yes();
 
   return 0;
 }
