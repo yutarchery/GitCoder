@@ -22,4 +22,60 @@ void No() { printf("No\n"); }
 void YES() { printf("YES\n"); }
 void NO() { printf("NO\n"); }
 
-int main() { return 0; }
+ll l, r;
+
+vector<ll> primes;
+map<ll, ll> rest;
+
+bool visited[int(1e7 + 5)], prime_visited[int(2e7 + 5)];
+
+void make_primes(ll m) {
+  for (ll i = 2; i * i <= m; i++) {
+    if (prime_visited[i]) {
+      continue;
+    }
+
+    primes.push_back(i);
+    for (ll j = i; j * j <= m; j += i) {
+      prime_visited[j] = true;
+    }
+  }
+  return;
+}
+
+int main() {
+  cin >> l >> r;
+  make_primes(r + 100);
+
+  int ans = 1;
+  visited[0] = true;
+  for (ll p : primes) {
+    ll m = l / p;
+    for (ll i = (l / p) * p; i <= r; i += p) {
+      if (i < l) {
+        continue;
+      }
+      if (visited[i - l]) {
+        continue;
+      }
+
+      visited[i - l] = true;
+      ll rest = i;
+      while (rest % p == 0) {
+        rest /= p;
+      }
+      if (rest == 1) {
+        ans++;
+      }
+    }
+  }
+
+  for (ll i = l; i <= r; i++) {
+    if (!visited[i - l]) {
+      ans++;
+    }
+  }
+  cout << ans << endl;
+
+  return 0;
+}
