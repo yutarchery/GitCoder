@@ -22,4 +22,10 @@ void No() { printf("No\n"); }
 void YES() { printf("YES\n"); }
 void NO() { printf("NO\n"); }
 
-int main() { return 0; }
+int main() {
+  // cin の高速化
+  std::cin.tie(nullptr);
+  ios::sync_with_stdio(false);
+
+  return 0;
+}
