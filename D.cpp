@@ -15,12 +15,12 @@ const ll MOD2 = 998244353;
 const ll MOD3 = 1812447359;
 const ll INF = 1ll << 62;
 const double PI = 2 * asin(1);
-void yes() { printf("yes\n"); }
-void no() { printf("no\n"); }
-void Yes() { printf("Yes\n"); }
-void No() { printf("No\n"); }
-void YES() { printf("YES\n"); }
-void NO() { printf("NO\n"); }
+void yes() { cout << "yes\n"; }
+void no() { cout << "no\n"; }
+void Yes() { cout << "Yes\n"; }
+void No() { cout << "No\n"; }
+void YES() { cout << "YES\n"; }
+void NO() { cout << "NO\n"; }
 
 int main() {
   // cin の高速化
