@@ -26,21 +26,6 @@ int n, q, t[int(2e5 + 5)];
 ll a[int(2e5 + 5)], x[int(2e5 + 5)];
 ll u[int(2e5 + 5)], v[int(2e5 + 5)], w[int(2e5 + 5)];
 
-ll solve(ll val, int j) {
-  ll res = val;
-  for (int i = 1; i <= j; i++) {
-    if (t[i] == 1) {
-      res += a[i];
-    } else if (t[i] == 2) {
-      res = max(res, a[i]);
-    } else {
-      res = min(res, a[i]);
-    }
-  }
-
-  return res;
-}
-
 int main() {
   // cin の高速化
   std::cin.tie(nullptr);
