@@ -25,7 +25,7 @@ void NO() { cout << "NO\n"; }
 int q, k, x;
 char c;
 
-ll dp[5005];
+ll dp[5005][5005];
 
 int main() {
   // cin の高速化
@@ -33,26 +33,38 @@ int main() {
   ios::sync_with_stdio(false);
 
   cin >> q >> k;
-  dp[0] = 1;
+  dp[0][0] = 1;
 
-  while (q--) {
+  for (int i = 1; i <= q; i++) {
     cin >> c >> x;
     if (c == '+') {
-      for (int j = k; j >= x; j--) {
-        dp[j] += dp[j - x];
-        dp[j] %= MOD2;
+      for (int j = 0; j <= k; j++) {
+        if (j >= x) {
+          dp[i][j] = dp[i - 1][j] + dp[i - 1][j - x];
+        } else {
+          dp[i][j] = dp[i - 1][j];
+        }
+
+        dp[i][j] %= MOD2;
       }
     } else {
-      for (int j = x; j <= k; j++) {
-        dp[j] -= dp[j - x];
-        dp[j] %= MOD2;
-        if (dp[j] < 0) {
-          dp[j] += MOD2;
+      for (int j = 0; j <= k; j++) {
+        if (j >= x) {
+          dp[i][j] = dp[i - 1][j] - dp[i][j - x];
+        } else {
+          dp[i][j] = dp[i - 1][j];
+        }
+
+        dp[i][j] %= MOD2;
+        if (dp[i][j] < 0) {
+          dp[i][j] += MOD2;
         }
       }
     }
+  }
 
-    cout << dp[k] << '\n';
+  for (int i = 1; i <= q; i++) {
+    cout << dp[i][k] << '\n';
   }
 
   return 0;
